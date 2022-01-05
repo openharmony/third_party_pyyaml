@@ -42,4 +42,4 @@ PyYAML包含完整的测试套件，您可以通过执行 `python setup.py test`
 
 PyYAML模块由Kirill Simonov <xi@resolvent.net>编码实现，目前由YAML和Python社区负责维护。
 
-PyYAML基于MIT协议发布，更多协议相关的内容可以访问LISENCE文件。
+PyYAML基于MIT协议发布，更多协议相关的内容可以访问LICENSE文件。
