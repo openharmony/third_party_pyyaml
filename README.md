@@ -34,7 +34,7 @@ PyYAML包含完整的测试套件，您可以通过执行 `python setup.py test`
 
 * 如果您想获取更多关于PyYAML的信息，可以访问PyYAML官网[PyYAML homepage](https://github.com/yaml/pyyaml)和[PyYAML tutorial and reference](http://pyyaml.org/wiki/PyYAMLDocumentation)。
   
-* 您也可以在Matrix上（https://matrix.to/#/#pyyaml:yaml.io）或者IRC #pyyaml irc.libera.chat 和PyYAML的维护人员进行讨论。
+* 您也可以通过[Matrix](https://matrix.to/#/#pyyaml:yaml.io)或者IRC #pyyaml irc.libera.chat 和PyYAML的维护人员讨论问题。
   
 * 您也可以通过访问[PyYAML bug tracker](https://github.com/yaml/pyyaml/issues)来提交您发现的关于PyYAML的任何Bug或者您想增加的新特性。
 
