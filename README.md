@@ -1,45 +1,53 @@
 PyYAML
 ======
 
-PyYAML是一套基于Python实现的全能YAML处理框架。
+A full-featured YAML processing framework for Python
 
-## 安装
+## Installation
 
-您可以通过执行`python setup.py install`完成LibYAML的安装。
+To install, type `python setup.py install`.
 
-默认情况下，`setup.py`会检查LibYAML是否已安装，在LibYAML已安装的情况下会自动构建及安装LibYAML bindings。
+By default, the `setup.py` script checks whether LibYAML is installed and if
+so, builds and installs LibYAML bindings.
+To skip the check and force installation of LibYAML bindings, use the option
+`--with-libyaml`: `python setup.py --with-libyaml install`.
+To disable the check and skip building and installing LibYAML bindings, use
+`--without-libyaml`: `python setup.py --without-libyaml install`.
 
-如果想忽略相应的检查直接安装LibYAML bindings，可以执行以下命令：
-
-`--with-libyaml`: `python setup.py --with-libyaml install`。
-
-如果想关闭检查且忽略构建及安装LibYAML bindings，可以执行以下命令：
-
-`--without-libyaml`: `python setup.py --without-libyaml install`。
-
-当LibYAML bindings成功安装之后，你可以按照以下方式进行YAML流的加载解析：
+When LibYAML bindings are installed, you may use fast LibYAML-based parser and
+emitter as follows:
 
     >>> yaml.load(stream, Loader=yaml.CLoader)
     >>> yaml.dump(data, Dumper=yaml.CDumper)
 
-如果您不是很信任某个YAML输入流，可以通过安全模式进行加载：
+If you don't trust the input YAML stream, you should use:
 
     >>> yaml.safe_load(stream)
 
-## 测试
+## Testing
 
-PyYAML包含完整的测试套件，您可以通过执行 `python setup.py test`可以完成相应的测试用例的执行。
+PyYAML includes a comprehensive test suite.
+To run the tests, type `python setup.py test`.
 
-## 更多信息
+## Further Information
 
-* 如果您想获取更多关于PyYAML的信息，可以访问PyYAML官网[PyYAML homepage](https://github.com/yaml/pyyaml)和[PyYAML tutorial and reference](http://pyyaml.org/wiki/PyYAMLDocumentation)。
-  
-* 您也可以通过[Matrix](https://matrix.to/#/#pyyaml:yaml.io)或者IRC #pyyaml irc.libera.chat 和PyYAML的维护人员讨论问题。
-  
-* 您也可以通过访问[PyYAML bug tracker](https://github.com/yaml/pyyaml/issues)来提交您发现的关于PyYAML的任何Bug或者您想增加的新特性。
+* For more information, check the
+  [PyYAML homepage](https://github.com/yaml/pyyaml).
 
-## 协议
+* [PyYAML tutorial and reference](http://pyyaml.org/wiki/PyYAMLDocumentation).
 
-PyYAML模块由Kirill Simonov <xi@resolvent.net>编码实现，目前由YAML和Python社区负责维护。
+* Discuss PyYAML with the maintainers on
+  Matrix at https://matrix.to/#/#pyyaml:yaml.io or
+  IRC #pyyaml irc.libera.chat
 
-PyYAML基于MIT协议发布，更多协议相关的内容可以访问LICENSE文件。
+* Submit bug reports and feature requests to the
+  [PyYAML bug tracker](https://github.com/yaml/pyyaml/issues).
+
+## License
+
+The PyYAML module was written by Kirill Simonov <xi@resolvent.net>.
+It is currently maintained by the YAML and Python communities.
+
+PyYAML is released under the MIT license.
+
+See the file LICENSE for more details.
