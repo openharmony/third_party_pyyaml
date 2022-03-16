@@ -1,34 +1,31 @@
 
 import yaml.reader
+import codecs
 
 def _run_reader(data, verbose):
     try:
         stream = yaml.reader.Reader(data)
-        while stream.peek() != '\0':
+        while stream.peek() != u'\0':
             stream.forward()
-    except yaml.reader.ReaderError as exc:
+    except yaml.reader.ReaderError, exc:
         if verbose:
-            print(exc)
+            print exc
     else:
         raise AssertionError("expected an exception")
 
 def test_stream_error(error_filename, verbose=False):
-    with open(error_filename, 'rb') as file:
-        _run_reader(file, verbose)
-    with open(error_filename, 'rb') as file:
-        _run_reader(file.read(), verbose)
+    _run_reader(open(error_filename, 'rb'), verbose)
+    _run_reader(open(error_filename, 'rb').read(), verbose)
     for encoding in ['utf-8', 'utf-16-le', 'utf-16-be']:
         try:
-            with open(error_filename, 'rb') as file:
-                data = file.read().decode(encoding)
+            data = unicode(open(error_filename, 'rb').read(), encoding)
             break
         except UnicodeDecodeError:
             pass
     else:
         return
     _run_reader(data, verbose)
-    with open(error_filename, encoding=encoding) as file:
-        _run_reader(file, verbose)
+    _run_reader(codecs.open(error_filename, encoding=encoding), verbose)
 
 test_stream_error.unittest = ['.stream-error']
 

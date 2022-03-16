@@ -1,1 +1,1 @@
-[str, yaml.Loader, yaml.dump, abs, yaml.tokens, signal.Handlers]
+[str, yaml.Loader, yaml.dump, abs, yaml.tokens]

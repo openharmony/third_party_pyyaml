@@ -44,17 +44,15 @@ _replaces = {
 
 def test_tokens(data_filename, tokens_filename, verbose=False):
     tokens1 = []
-    with open(tokens_filename, 'r') as file:
-        tokens2 = file.read().split()
+    tokens2 = open(tokens_filename, 'rb').read().split()
     try:
-        with open(data_filename, 'rb') as file:
-            for token in yaml.scan(file):
-                if not isinstance(token, (yaml.StreamStartToken, yaml.StreamEndToken)):
-                    tokens1.append(_replaces[token.__class__])
+        for token in yaml.scan(open(data_filename, 'rb')):
+            if not isinstance(token, (yaml.StreamStartToken, yaml.StreamEndToken)):
+                tokens1.append(_replaces[token.__class__])
     finally:
         if verbose:
-            print("TOKENS1:", ' '.join(tokens1))
-            print("TOKENS2:", ' '.join(tokens2))
+            print "TOKENS1:", ' '.join(tokens1)
+            print "TOKENS2:", ' '.join(tokens2)
     assert len(tokens1) == len(tokens2), (tokens1, tokens2)
     for token1, token2 in zip(tokens1, tokens2):
         assert token1 == token2, (token1, token2)
@@ -65,9 +63,8 @@ def test_scanner(data_filename, canonical_filename, verbose=False):
     for filename in [data_filename, canonical_filename]:
         tokens = []
         try:
-            with open(filename, 'rb') as file:
-                for token in yaml.scan(file):
-                    tokens.append(token.__class__.__name__)
+            for token in yaml.scan(open(filename, 'rb')):
+                tokens.append(token.__class__.__name__)
         finally:
             if verbose:
                 pprint.pprint(tokens)
