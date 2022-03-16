@@ -3,11 +3,10 @@ import yaml, test_emitter
 
 def test_loader_error(error_filename, verbose=False):
     try:
-        with open(error_filename, 'rb') as file:
-            list(yaml.load_all(file, yaml.FullLoader))
-    except yaml.YAMLError as exc:
+        list(yaml.load_all(open(error_filename, 'rb'), yaml.FullLoader))
+    except yaml.YAMLError, exc:
         if verbose:
-            print("%s:" % exc.__class__.__name__, exc)
+            print "%s:" % exc.__class__.__name__, exc
     else:
         raise AssertionError("expected an exception")
 
@@ -15,11 +14,10 @@ test_loader_error.unittest = ['.loader-error']
 
 def test_loader_error_string(error_filename, verbose=False):
     try:
-        with open(error_filename, 'rb') as file:
-            list(yaml.load_all(file.read(), yaml.FullLoader))
-    except yaml.YAMLError as exc:
+        list(yaml.load_all(open(error_filename, 'rb').read(), yaml.FullLoader))
+    except yaml.YAMLError, exc:
         if verbose:
-            print("%s:" % exc.__class__.__name__, exc)
+            print "%s:" % exc.__class__.__name__, exc
     else:
         raise AssertionError("expected an exception")
 
@@ -27,39 +25,37 @@ test_loader_error_string.unittest = ['.loader-error']
 
 def test_loader_error_single(error_filename, verbose=False):
     try:
-        with open(error_filename, 'rb') as file:
-            yaml.load(file.read(), yaml.FullLoader)
-    except yaml.YAMLError as exc:
+        yaml.load(open(error_filename, 'rb').read(), yaml.FullLoader)
+    except yaml.YAMLError, exc:
         if verbose:
-            print("%s:" % exc.__class__.__name__, exc)
+            print "%s:" % exc.__class__.__name__, exc
     else:
         raise AssertionError("expected an exception")
 
 test_loader_error_single.unittest = ['.single-loader-error']
 
 def test_emitter_error(error_filename, verbose=False):
-    with open(error_filename, 'rb') as file:
-        events = list(yaml.load(file, Loader=test_emitter.EventsLoader))
+    events = list(yaml.load(open(error_filename, 'rb'),
+                    Loader=test_emitter.EventsLoader))
     try:
         yaml.emit(events)
-    except yaml.YAMLError as exc:
+    except yaml.YAMLError, exc:
         if verbose:
-            print("%s:" % exc.__class__.__name__, exc)
+            print "%s:" % exc.__class__.__name__, exc
     else:
         raise AssertionError("expected an exception")
 
 test_emitter_error.unittest = ['.emitter-error']
 
 def test_dumper_error(error_filename, verbose=False):
-    with open(error_filename, 'rb') as file:
-        code = file.read()
+    code = open(error_filename, 'rb').read()
     try:
         import yaml
-        from io import StringIO
-        exec(code)
-    except yaml.YAMLError as exc:
+        from StringIO import StringIO
+        exec code
+    except yaml.YAMLError, exc:
         if verbose:
-            print("%s:" % exc.__class__.__name__, exc)
+            print "%s:" % exc.__class__.__name__, exc
     else:
         raise AssertionError("expected an exception")
 
