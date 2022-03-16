@@ -117,8 +117,8 @@ def _tear_down():
 
 def test_c_version(verbose=False):
     if verbose:
-        print(_yaml.get_version())
-        print(_yaml.get_version_string())
+        print yaml._yaml.get_version()
+        print yaml._yaml.get_version_string()
     assert ("%s.%s.%s" % yaml._yaml.get_version()) == yaml._yaml.get_version_string(),    \
             (_yaml.get_version(), yaml._yaml.get_version_string())
 
@@ -148,20 +148,20 @@ def _compare_scanners(py_data, c_data, verbose):
             assert py_end == c_end, (py_end, c_end)
     finally:
         if verbose:
-            print("PY_TOKENS:")
+            print "PY_TOKENS:"
             pprint.pprint(py_tokens)
-            print("C_TOKENS:")
+            print "C_TOKENS:"
             pprint.pprint(c_tokens)
 
 def test_c_scanner(data_filename, canonical_filename, verbose=False):
-    with open(data_filename, 'rb') as file1, open(data_filename, 'rb') as file2:
-        _compare_scanners(file1, file2, verbose)
-    with open(data_filename, 'rb') as file1, open(data_filename, 'rb') as file2:
-        _compare_scanners(file1.read(), file2.read(), verbose)
-    with open(canonical_filename, 'rb') as file1, open(canonical_filename, 'rb') as file2:
-        _compare_scanners(file1, file2, verbose)
-    with open(canonical_filename, 'rb') as file1, open(canonical_filename, 'rb') as file2:
-        _compare_scanners(file1.read(), file2.read(), verbose)
+    _compare_scanners(open(data_filename, 'rb'),
+            open(data_filename, 'rb'), verbose)
+    _compare_scanners(open(data_filename, 'rb').read(),
+            open(data_filename, 'rb').read(), verbose)
+    _compare_scanners(open(canonical_filename, 'rb'),
+            open(canonical_filename, 'rb'), verbose)
+    _compare_scanners(open(canonical_filename, 'rb').read(),
+            open(canonical_filename, 'rb').read(), verbose)
 
 test_c_scanner.unittest = ['.data', '.canonical']
 test_c_scanner.skip = ['.skip-ext']
@@ -181,20 +181,20 @@ def _compare_parsers(py_data, c_data, verbose):
                 assert py_value == c_value, (py_event, c_event, attribute)
     finally:
         if verbose:
-            print("PY_EVENTS:")
+            print "PY_EVENTS:"
             pprint.pprint(py_events)
-            print("C_EVENTS:")
+            print "C_EVENTS:"
             pprint.pprint(c_events)
 
 def test_c_parser(data_filename, canonical_filename, verbose=False):
-    with open(data_filename, 'rb') as file1, open(data_filename, 'rb') as file2:
-        _compare_parsers(file1, file2, verbose)
-    with open(data_filename, 'rb') as file1, open(data_filename, 'rb') as file2:
-        _compare_parsers(file1.read(), file2.read(), verbose)
-    with open(canonical_filename, 'rb') as file1, open(canonical_filename, 'rb') as file2:
-        _compare_parsers(file1, file2, verbose)
-    with open(canonical_filename, 'rb') as file1, open(canonical_filename, 'rb') as file2:
-        _compare_parsers(file1.read(), file2.read(), verbose)
+    _compare_parsers(open(data_filename, 'rb'),
+            open(data_filename, 'rb'), verbose)
+    _compare_parsers(open(data_filename, 'rb').read(),
+            open(data_filename, 'rb').read(), verbose)
+    _compare_parsers(open(canonical_filename, 'rb'),
+            open(canonical_filename, 'rb'), verbose)
+    _compare_parsers(open(canonical_filename, 'rb').read(),
+            open(canonical_filename, 'rb').read(), verbose)
 
 test_c_parser.unittest = ['.data', '.canonical']
 test_c_parser.skip = ['.skip-ext']
@@ -203,7 +203,7 @@ def _compare_emitters(data, verbose):
     events = list(yaml.parse(data, Loader=yaml.PyLoader))
     c_data = yaml.emit(events, Dumper=yaml.CDumper)
     if verbose:
-        print(c_data)
+        print c_data
     py_events = list(yaml.parse(c_data, Loader=yaml.PyLoader))
     c_events = list(yaml.parse(c_data, Loader=yaml.CLoader))
     try:
@@ -215,8 +215,8 @@ def _compare_emitters(data, verbose):
                 value = getattr(event, attribute, None)
                 py_value = getattr(py_event, attribute, None)
                 c_value = getattr(c_event, attribute, None)
-                if attribute == 'tag' and value in [None, '!'] \
-                        and py_value in [None, '!'] and c_value in [None, '!']:
+                if attribute == 'tag' and value in [None, u'!'] \
+                        and py_value in [None, u'!'] and c_value in [None, u'!']:
                     continue
                 if attribute == 'explicit' and (py_value or c_value):
                     continue
@@ -224,18 +224,16 @@ def _compare_emitters(data, verbose):
                 assert value == c_value, (event, c_event, attribute)
     finally:
         if verbose:
-            print("EVENTS:")
+            print "EVENTS:"
             pprint.pprint(events)
-            print("PY_EVENTS:")
+            print "PY_EVENTS:"
             pprint.pprint(py_events)
-            print("C_EVENTS:")
+            print "C_EVENTS:"
             pprint.pprint(c_events)
 
 def test_c_emitter(data_filename, canonical_filename, verbose=False):
-    with open(data_filename, 'rb') as file:
-        _compare_emitters(file.read(), verbose)
-    with open(canonical_filename, 'rb') as file:
-        _compare_emitters(file.read(), verbose)
+    _compare_emitters(open(data_filename, 'rb').read(), verbose)
+    _compare_emitters(open(canonical_filename, 'rb').read(), verbose)
 
 test_c_emitter.unittest = ['.data', '.canonical']
 test_c_emitter.skip = ['.skip-ext']
@@ -250,7 +248,7 @@ def test_large_file(verbose=False):
         return
     with tempfile.TemporaryFile() as temp_file:
         for i in range(2**(SIZE_FILE-SIZE_ITERATION-SIZE_LINE) + 1):
-            temp_file.write(bytes(('-' + (' ' * (2**SIZE_LINE-4))+ '{}\n')*(2**SIZE_ITERATION), 'utf-8'))
+            temp_file.write(('-' + (' ' * (2**SIZE_LINE-4))+ '{}\n')*(2**SIZE_ITERATION))
         temp_file.seek(0)
         yaml.load(temp_file, Loader=yaml.CLoader)
 
@@ -263,7 +261,11 @@ def wrap_ext_function(function):
             function(*args, **kwds)
         finally:
             _tear_down()
-    wrapper.__name__ = '%s_ext' % function.__name__
+    try:
+        wrapper.func_name = '%s_ext' % function.func_name
+    except TypeError:
+        pass
+    wrapper.unittest_name = '%s_ext' % function.func_name
     wrapper.unittest = function.unittest
     wrapper.skip = getattr(function, 'skip', [])+['.skip-ext']
     return wrapper
@@ -275,13 +277,15 @@ def wrap_ext(collections):
     for collection in collections:
         if not isinstance(collection, dict):
             collection = vars(collection)
-        for key in sorted(collection):
+        keys = collection.keys()
+        keys.sort()
+        for key in keys:
             value = collection[key]
             if isinstance(value, types.FunctionType) and hasattr(value, 'unittest'):
                 functions.append(wrap_ext_function(value))
     for function in functions:
-        assert function.__name__ not in globals()
-        globals()[function.__name__] = function
+        assert function.unittest_name not in globals()
+        globals()[function.unittest_name] = function
 
 import test_tokens, test_structure, test_errors, test_resolver, test_constructor,   \
         test_emitter, test_representer, test_recursive, test_input_output

@@ -3,4 +3,3 @@
 - !!python/name:yaml.dump
 - !!python/name:abs
 - !!python/module:yaml.tokens
-- !!python/name:signal.Handlers
