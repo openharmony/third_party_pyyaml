@@ -39,10 +39,9 @@
                 <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
                 <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
             </filefilter>
-            <filefilter name="defaultPolicyFilter" desc="Filters for compatibility, license header policies">
+            <filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">
                 <filteritem type="filepath" name="tests/.*" desc="no license header"/>
                 <filteritem type="filepath" name="lib/yaml/.*" desc="no license header"/>
-                <filteritem type="filename" name="lib3/yaml/.*" desc="no license header"/>
                 <filteritem type="filepath" name="examples/.*" desc="no license header"/>
                 <filteritem type="filepath" name="yaml/.*" desc="no license header"/>
                 <filteritem type="filepath" name="packaging/build/.*" desc="no license header"/>
