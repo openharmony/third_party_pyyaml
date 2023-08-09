@@ -1,5 +1,5 @@
 {
-    "name": "@ohos/PyYAML",
+    "name": "@ohos/pyyaml",
     "description": "A YAML parser and emitter for Python.",
     "version": "3.1",
     "license": "MIT",
@@ -10,11 +10,14 @@
     "dirs": {},
     "scripts": {},
     "component": {
-        "name": "PyYAML",
+        "name": "pyyaml",
         "subsystem": "thirdparty",
         "syscap": [],
         "features": [],
-        "adapted_system_type": [],
+        "adapted_system_type": [
+            "mini",
+            "standard"
+        ],
         "rom": "",
         "ram": "",
         "deps": {
