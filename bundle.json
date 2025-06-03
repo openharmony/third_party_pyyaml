@@ -1,7 +1,7 @@
 {
     "name": "@ohos/PyYAML",
-    "description": "A YAML parser and emitter for Python.",
-    "version": "3.1",
+    "description": "A full-featured YAML processing framework for Python",
+    "version": "6.0.2",
     "license": "MIT",
     "publishAs": "code-segment",
     "segment": {
